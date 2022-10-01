@@ -1,3 +1,6 @@
 class MemberSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :name, picture
+
+  has_many :chores
+  has_many :rooms, through: :chores
 end
