@@ -1,5 +1,7 @@
 class ChoresController < ApplicationController
 
+    rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
+
     def index
         chores = Chore.all 
         render json: chores
@@ -19,6 +21,10 @@ class ChoresController < ApplicationController
 
     def chore_params
         params.permit(:description, :supplies, :directions)
+    end
+
+    def record_invalid(invalid)
+        render json: { errors: "Validation Errors" }, status: :unprocessable_entity
     end
 
 end
